@@ -4,6 +4,7 @@ import dev.codenmore.tilegame.display.Display;
 import dev.codenmore.tilegame.gfx.Assets;
 import dev.codenmore.tilegame.gfx.ImageLoader;
 import dev.codenmore.tilegame.gfx.SpriteSheet;
+import dev.codenmore.tilegame.input.KeyManager;
 import dev.codenmore.tilegame.states.GameState;
 import dev.codenmore.tilegame.states.MenuState;
 import dev.codenmore.tilegame.states.State;
@@ -21,6 +22,7 @@ public class Game implements Runnable {
     private Thread thread;
     private BufferStrategy bs;
     private Graphics g;
+    private KeyManager keyManager;
 
 //    States
     private State gameState;
@@ -30,18 +32,21 @@ public class Game implements Runnable {
         this.title = title;
         this.width = width;
         this.height = height;
+        keyManager = new KeyManager();
     }
 
     private void init() {
         display = new Display(title, width, height);
+        display.getFrame().addKeyListener(keyManager);
         Assets.init();
 
-        gameState = new GameState();
-        menuState = new MenuState();
+        gameState = new GameState(this);
+        menuState = new MenuState(this);
         State.setState(gameState);
     }
 
     private void tick() {
+        keyManager.tick();
         if (State.getState() != null) {
             State.getState().tick();
         }
@@ -100,13 +105,17 @@ public class Game implements Runnable {
             }
 
             if (timer >= 1000000000) {
-                System.out.println("ticks and frames: " + ticks);
+//                System.out.println("ticks and frames: " + ticks);
                 ticks = 0;
                 timer = 0;
             }
         }
 
         stop();
+    }
+
+    public KeyManager getKeyManager() {
+        return keyManager;
     }
 
     public synchronized void start() {
