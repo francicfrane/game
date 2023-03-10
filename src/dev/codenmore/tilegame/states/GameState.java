@@ -3,6 +3,7 @@ package dev.codenmore.tilegame.states;
 import dev.codenmore.tilegame.Game;
 import dev.codenmore.tilegame.entities.creatures.Player;
 import dev.codenmore.tilegame.gfx.Assets;
+import dev.codenmore.tilegame.tiles.Tile;
 
 import java.awt.*;
 
@@ -23,6 +24,7 @@ public class GameState extends State {
         @Override
         public void render(Graphics g) {
                 player.render(g);
+                Tile.tiles[0].render(g, 0, 0);
         }
 
 //        test koment
