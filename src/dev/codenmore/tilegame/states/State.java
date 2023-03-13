@@ -1,6 +1,7 @@
 package dev.codenmore.tilegame.states;
 
 import dev.codenmore.tilegame.Game;
+import dev.codenmore.tilegame.Handler;
 
 import java.awt.*;
 
@@ -17,10 +18,10 @@ public abstract class State {
     }
 
 //    CLASS
-    protected Game game;
+    protected Handler handler;
 
-    public State(Game game) {
-        this.game = game;
+    public State(Handler handler) {
+        this.handler = handler;
     }
 
     public abstract void tick();

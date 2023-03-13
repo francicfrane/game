@@ -1,6 +1,7 @@
 package dev.codenmore.tilegame.entities.creatures;
 
 import dev.codenmore.tilegame.Game;
+import dev.codenmore.tilegame.Handler;
 import dev.codenmore.tilegame.entities.Entity;
 
 public abstract class Creature extends Entity {
@@ -11,6 +12,14 @@ public abstract class Creature extends Entity {
 
     protected int health;
     protected float speed, xMove, yMove;
+
+    public Creature(Handler handler, float x, float y, int width, int height) {
+        super(handler, x, y, width, height);
+        health = DEFAULT_HEALTH;
+        speed = DEFAULT_SPEED;
+        xMove = 0;
+        yMove = 0;
+    }
 
     public void move() {
         x += xMove;
@@ -36,13 +45,7 @@ public abstract class Creature extends Entity {
         this.yMove = yMove;
     }
 
-    public Creature(Game game, float x, float y, int width, int height) {
-        super(game, x, y, width, height);
-        health = DEFAULT_HEALTH;
-        speed = DEFAULT_SPEED;
-        xMove = 0;
-        yMove = 0;
-    }
+
 
     public int getHealth() {
         return health;

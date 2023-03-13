@@ -1,6 +1,6 @@
 package dev.codenmore.tilegame.entities.creatures;
 
-import dev.codenmore.tilegame.Game;
+import dev.codenmore.tilegame.Handler;
 import dev.codenmore.tilegame.gfx.Assets;
 
 import java.awt.*;
@@ -8,40 +8,40 @@ import java.awt.*;
 public class Player extends Creature{
 
 
-    public Player(Game game, float x, float y) {
-        super(game, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+    public Player(Handler handler, float x, float y) {
+        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
     }
 
     @Override
     public void tick() {
         getInput();
         move();
-        game.getGameCamera().centerOnEntity(this);
+        handler.getGameCamera().centerOnEntity(this);
     }
 
     private void getInput() {
         xMove = 0;
         yMove = 0;
 
-        if(game.getKeyManager().up) {
+        if (handler.getKeyManager().up) {
             yMove = -speed;
         }
 
-        if(game.getKeyManager().down) {
+        if (handler.getKeyManager().down) {
             yMove = speed;
         }
 
-        if(game.getKeyManager().left) {
+        if (handler.getKeyManager().left) {
             xMove = -speed;
         }
 
-        if(game.getKeyManager().right) {
+        if (handler.getKeyManager().right) {
             xMove = speed;
         }
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+        g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
     }
 }

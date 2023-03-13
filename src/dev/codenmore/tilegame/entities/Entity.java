@@ -1,16 +1,17 @@
 package dev.codenmore.tilegame.entities;
 
 import dev.codenmore.tilegame.Game;
+import dev.codenmore.tilegame.Handler;
 
 import java.awt.*;
 
 public abstract class Entity {
-    protected Game game;
+    protected Handler handler;
     protected float x, y;
     protected int width, height;
 
-    public Entity(Game game, float x, float y, int width, int height) {
-        this.game = game;
+    public Entity(Handler handler, float x, float y, int width, int height) {
+        this.handler = handler;
         this.x = x;
         this.y = y;
         this.width = width;

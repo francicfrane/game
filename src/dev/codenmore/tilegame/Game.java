@@ -24,6 +24,20 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
     private KeyManager keyManager;
+    private GameCamera gameCamera;
+    private Handler handler;
+
+    //    States
+    private State gameState;
+    private State menuState;
+
+    public Game(String title, int width, int height) {
+        this.title = title;
+        this.width = width;
+        this.height = height;
+        keyManager = new KeyManager();
+    }
+
 
     public int getWidth() {
         return width;
@@ -41,27 +55,15 @@ public class Game implements Runnable {
         this.height = height;
     }
 
-    private GameCamera gameCamera;
-
-//    States
-    private State gameState;
-    private State menuState;
-
-    public Game(String title, int width, int height) {
-        this.title = title;
-        this.width = width;
-        this.height = height;
-        keyManager = new KeyManager();
-    }
 
     private void init() {
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         Assets.init();
         gameCamera = new GameCamera(this,0, 0);
-
-        gameState = new GameState(this);
-        menuState = new MenuState(this);
+        handler = new Handler(this);
+        gameState = new GameState(handler);
+        menuState = new MenuState(handler);
         State.setState(gameState);
     }
 
