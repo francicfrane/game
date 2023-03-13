@@ -2,6 +2,7 @@ package dev.codenmore.tilegame;
 
 import dev.codenmore.tilegame.display.Display;
 import dev.codenmore.tilegame.gfx.Assets;
+import dev.codenmore.tilegame.gfx.GameCamera;
 import dev.codenmore.tilegame.gfx.ImageLoader;
 import dev.codenmore.tilegame.gfx.SpriteSheet;
 import dev.codenmore.tilegame.input.KeyManager;
@@ -16,13 +17,31 @@ import java.awt.image.BufferedImage;
 public class Game implements Runnable {
 
     private Display display;
-    public int width, height;
+    private int width, height;
     public String title;
     private boolean running = false;
     private Thread thread;
     private BufferStrategy bs;
     private Graphics g;
     private KeyManager keyManager;
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    private GameCamera gameCamera;
 
 //    States
     private State gameState;
@@ -39,6 +58,7 @@ public class Game implements Runnable {
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         Assets.init();
+        gameCamera = new GameCamera(this,0, 0);
 
         gameState = new GameState(this);
         menuState = new MenuState(this);
@@ -117,6 +137,11 @@ public class Game implements Runnable {
     public KeyManager getKeyManager() {
         return keyManager;
     }
+
+    public GameCamera getGameCamera() {
+        return gameCamera;
+    }
+
 
     public synchronized void start() {
         if (running) {
