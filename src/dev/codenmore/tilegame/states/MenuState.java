@@ -19,6 +19,6 @@ public class MenuState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player, 0, 0 , null);
+//        g.drawImage(Assets.player, 0, 0 , null);
     }
 }
